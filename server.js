@@ -39,7 +39,8 @@ const initPrompt = () => {
             "Add Role",
             "Remove Employee",
             "Update Employee Role",
-            "Update Employee Manager"
+            "Update Employee Manager",
+            "Exit"
         ]
       }
     ]).then(answers => {
@@ -76,27 +77,29 @@ const initPrompt = () => {
         else if (answers.init === "Update Employee Manager") {
             updateEmployeeManager();
         }
+        else if (answers.init === "Exit") {
+            connection.end();
+        }
         else {
-          generateHTML();
+            connection.end();
         }
       })
       .catch(err => {
         if (err) {
           console.log(err)
         }
-      })
+      });
     };
-    //initPrompt();
     
     // view all employees in the database
     const showAllEmployees = () => {
         let results = connection.query("SELECT employee.id, employee.first_name, employee.last_name, roles.title, department.dept_name, roles.salary, CONCAT(manager.first_name, ' ', manager.last_name) AS manager FROM employee LEFT JOIN roles ON employee.role_id = roles.id LEFT JOIN department ON roles.department_id = department.id LEFT JOIN employee manager ON manager.id = employee.manager_id;",
 
         function (error, results) {
-            if (error) throw error
-            console.table(results)
+            if (error) throw error;
+            console.table(results);
+            initPrompt();
         })
-        initPrompt();
     };
 
     const showAllEmployeesByDept = () => {
@@ -111,10 +114,10 @@ const initPrompt = () => {
         [answers.deptID],
 
         function (error, results) {
-            if (error) throw error
-            console.table(results)
+            if (error) throw error;
+            console.table(results);
+            initPrompt();
         })
-        initPrompt();
     });
     };
 
@@ -130,10 +133,10 @@ const initPrompt = () => {
         [answers.managerID],
 
         function (error, results) {
-            if (error) throw error
-            console.table(results)
+            if (error) throw error;
+            console.table(results);
+            initPrompt();
         })
-        initPrompt();
     });
     };
 
@@ -164,11 +167,12 @@ const initPrompt = () => {
         [answers.employeeFirst, answers.employeeLast, answers.employeeDept, answers.employeeManager],
 
         function (error, results) {
-            if (error) throw error
-            console.table(results)
+            if (error) throw error;
+            console.table(results);
+            console.log(`employee "${answers.employeeFirst} ${answers.employeeLast}" was successfully added to the database!`)
+            //showAllEmployees();
+            initPrompt();
         })
-        showAllEmployees()
-        initPrompt();
     });
     };
 
@@ -176,10 +180,10 @@ const initPrompt = () => {
         let results = connection.query("SELECT * FROM department;",
 
         function (error, results) {
-            if (error) throw error
-            console.table(results)
+            if (error) throw error;
+            console.table(results);
+            initPrompt();
         })
-        initPrompt();
     };
 
     const addDept = () => {
@@ -200,11 +204,11 @@ const initPrompt = () => {
         [answers.deptName],
 
         function (error, results) {
-            if (error) throw error
-            console.table(results)
+            if (error) throw error;
+            console.table(results);
+            console.log(`New department "${answers.deptName}" was successfully added to the database!`)
+            initPrompt();
         })
-        showAllDepartments();
-        //initPrompt();
     });
     };
 
@@ -212,10 +216,10 @@ const initPrompt = () => {
         let results = connection.query("SELECT * FROM roles;",
 
         function (error, results) {
-            if (error) throw error
-            console.table(results)
+            if (error) throw error;
+            console.table(results);
+            initPrompt();
         })
-        initPrompt();
     };
 
     const addRole = () => {
@@ -246,11 +250,11 @@ const initPrompt = () => {
         [answers.roleTitle, answers.roleSalary, answers.roleDept],
 
         function (error, results) {
-            if (error) throw error
-            console.table(results)
+            if (error) throw error;
+            console.table(results);
+            console.log(`New Role "${answers.roleTitle}" has been successfully added to the database!`)
+            initPrompt();
         })
-        showAllRoles();
-        //initPrompt();
     });
     };
 
@@ -266,11 +270,11 @@ const initPrompt = () => {
         [answers.deleteEmployeeID],
 
         function (error, results) {
-            if (error) throw error
-            console.table(results)
+            if (error) throw error;
+            console.table(results);
+            console.log(`employeeID "${answers.deleteEmployeeID}" has been successfully purged from the database!`)
+            initPrompt();
         })
-        showAllEmployees();
-        initPrompt();
     });
     };
 
@@ -291,11 +295,11 @@ const initPrompt = () => {
         [answers.updateRoleID, answers.updateEmployeeID],
 
         function (error, results) {
-            if (error) throw error
-            console.table(results)
+            if (error) throw error;
+            console.table(results);
+            console.log(`employeeID "${answers.updateEmployeeID}" has been successfully updated to the new roleID: ${answers.updateRoleID}`)
+            initPrompt();
         })
-        showAllEmployees();
-        initPrompt();
     });
     };
 
@@ -316,10 +320,10 @@ const initPrompt = () => {
         [answers.updateManagerID, answers.updateManagerEmployeeID],
 
         function (error, results) {
-            if (error) throw error
-            console.table(results)
+            if (error) throw error;
+            console.table(results);
+            console.log(`employeeID "${answers.updateManagerEmployeeID}" has been updated and the ID of their manager is now "${answers.updateManagerID}"`)
+            initPrompt();
         })
-        showAllEmployees();
-        initPrompt();
     });
     };
