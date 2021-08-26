@@ -50,9 +50,6 @@ const initPrompt = () => {
         else if (answers.init === "View All Employees by Manager") {
           showAllEmployeesByManager();
         }
-        else if (answers.init === "Add Employee") {
-            addEmployee();
-          }
         else {
           generateHTML();
         }
@@ -73,7 +70,7 @@ const initPrompt = () => {
             if (error) throw error
             console.table(results)
         })
-        initPrompt();
+        //initPrompt();
     };
 
     const showAllEmployeesByDept = () => {
@@ -83,7 +80,7 @@ const initPrompt = () => {
             if (error) throw error
             console.table(results)
         })
-        initPrompt();
+        //initPrompt();
     };
 
     const showAllEmployeesByManager = () => {
@@ -93,41 +90,5 @@ const initPrompt = () => {
             if (error) throw error
             console.table(results)
         })
-        initPrompt();
+        //initPrompt();
     };
-
-    const addEmployee = () => {
-        inquirer.prompt([
-            {
-                type: 'input',
-                name: 'employeeFirst',
-                message: "What is the employee's first name?"
-            },
-            {
-                type: 'input',
-                name: 'employeeLast',
-                message: "What is the employee's last name?"
-            },
-            {
-                type: 'input',
-                name: 'employeeDept',
-                message: "What is this employee's role id?"
-            },
-            {
-                type: 'input',
-                name: 'employeeManager',
-                message: "What is this employee's manager id?"
-            }
-        ]).then(answers => {
-        let results = connection.query("INSERT INTO employee SET first_name = ?, last_name = ?, role_id = ?, manager_id = ?",
-        [answers.employeeFirst, answers.employeeLast, answers.employeeDept, answers.employeeManager],
-
-        function (error, results) {
-            if (error) throw error
-            console.table(results)
-        })
-        showAllEmployees()
-        initPrompt();
-    });
-    };
-
