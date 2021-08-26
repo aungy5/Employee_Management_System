@@ -40,6 +40,8 @@ const initPrompt = () => {
             "Remove Employee",
             "Update Employee Role",
             "Update Employee Manager",
+            "Delete Department",
+            "Delete Role",
             "Exit"
         ]
       }
@@ -76,6 +78,12 @@ const initPrompt = () => {
         }
         else if (answers.init === "Update Employee Manager") {
             updateEmployeeManager();
+        }
+        else if (answers.init === "Delete Department") {
+            deleteDept();
+        }
+        else if (answers.init === "Delete Role") {
+            deleteRole();
         }
         else if (answers.init === "Exit") {
             connection.end();
@@ -323,6 +331,46 @@ const initPrompt = () => {
             if (error) throw error;
             console.table(results);
             console.log(`employeeID "${answers.updateManagerEmployeeID}" has been updated and the ID of their manager is now "${answers.updateManagerID}"`)
+            initPrompt();
+        })
+    });
+    };
+
+    const deleteRole = () => {
+        return inquirer.prompt([
+            {
+                type: 'input',
+                name: 'deleteRoleID',
+                message: "What is the id of the role you would like to delete?"
+            },
+        ]).then(answers => {
+        let results = connection.query("DELETE FROM roles WHERE id = ?",
+        [answers.deleteEmployeeID],
+
+        function (error, results) {
+            if (error) throw error;
+            console.table(results);
+            console.log(`roleID "${answers.deleteRoleID}" has been successfully purged from the database!`)
+            initPrompt();
+        })
+    });
+    };
+
+    const deleteDept = () => {
+        return inquirer.prompt([
+            {
+                type: 'input',
+                name: 'deleteDeptID',
+                message: "What is the id of the department you would like to delete?"
+            },
+        ]).then(answers => {
+        let results = connection.query("DELETE FROM department WHERE id = ?",
+        [answers.deleteEmployeeID],
+
+        function (error, results) {
+            if (error) throw error;
+            console.table(results);
+            console.log(`departmentID "${answers.deleteDeptID}" has been successfully purged from the database!`)
             initPrompt();
         })
     });
