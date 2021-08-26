@@ -100,23 +100,41 @@ const initPrompt = () => {
     };
 
     const showAllEmployeesByDept = () => {
-        let results = connection.query("SELECT employee.id, employee.first_name, employee.last_name, roles.title, department.dept_name, roles.salary, CONCAT(manager.first_name, ' ', manager.last_name) AS manager FROM employee LEFT JOIN roles ON employee.role_id = roles.id LEFT JOIN department ON roles.department_id = department.id LEFT JOIN employee manager ON manager.id = employee.manager_id ORDER BY department.id;",
+        return inquirer.prompt([
+            {
+                type: 'input',
+                name: 'deptID',
+                message: "What is the id of the department you would like to view?"
+            },
+        ]).then(answers => {
+        let results = connection.query("SELECT employee.id, employee.first_name, employee.last_name, roles.title, department.dept_name, roles.salary, CONCAT(manager.first_name, ' ', manager.last_name) AS manager FROM employee LEFT JOIN roles ON employee.role_id = roles.id LEFT JOIN department ON roles.department_id = department.id LEFT JOIN employee manager ON manager.id = employee.manager_id WHERE department.id = ?",
+        [answers.deptID],
 
         function (error, results) {
             if (error) throw error
             console.table(results)
         })
         initPrompt();
+    });
     };
 
     const showAllEmployeesByManager = () => {
-        let results = connection.query("SELECT employee.id, employee.first_name, employee.last_name, roles.title, department.dept_name, roles.salary, CONCAT(manager.first_name, ' ', manager.last_name) AS manager FROM employee LEFT JOIN roles ON employee.role_id = roles.id LEFT JOIN department ON roles.department_id = department.id LEFT JOIN employee manager ON manager.id = employee.manager_id ORDER BY manager.id;",
+        return inquirer.prompt([
+            {
+                type: 'input',
+                name: 'managerID',
+                message: "What is the id of the manager you would like to view?"
+            },
+        ]).then(answers => {
+        let results = connection.query("SELECT employee.id, employee.first_name, employee.last_name, roles.title, department.dept_name, roles.salary, CONCAT(manager.first_name, ' ', manager.last_name) AS manager FROM employee LEFT JOIN roles ON employee.role_id = roles.id LEFT JOIN department ON roles.department_id = department.id LEFT JOIN employee manager ON manager.id = employee.manager_id WHERE employee.manager_id = ?",
+        [answers.managerID],
 
         function (error, results) {
             if (error) throw error
             console.table(results)
         })
         initPrompt();
+    });
     };
 
     const addEmployee = () => {
