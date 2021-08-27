@@ -1,6 +1,11 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
   # Employee Management System
+  
+  Link to Github Repository => https://github.com/aungy5/Employee_Management_System
+  
+  Link to Demo Video => https://drive.google.com/file/d/11UOp7WwtgNTd8XSlR3SfgL_2Jdml21HV/view?usp=sharing
+  
   ## Table of Contents
 - [Description](#description)
 
