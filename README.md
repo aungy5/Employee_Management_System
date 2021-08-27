@@ -20,6 +20,7 @@
   In this project we were asked to create a content management system that enables a small business to keep a running database of all their employees. The database stores 3 tables, one for departments, one for roles, and one for employees. This allows the business to keep track of all relevant employment information in one relational database. The user also has the ability to update the database at any time they wish, with no SQL experience required. They can perform all CRUD operations they would like to on the database without having much technical experience, which is especially valuable for a small business.
   ## Installation
   In order for this application to work, the user will need to install 3 npm packages, installation steps are listed below.
+  
   -npm init -y
   
   -npm i mysql2
