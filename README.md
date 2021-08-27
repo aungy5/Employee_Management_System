@@ -35,7 +35,7 @@
   -npm i console.table
   
   ## Usage
-  To use this application, the user simply needs to open a terminal window, navigate to the root directory and run the command "npm start" in the terminal. They can then select from the list of choices to interact with the database and perform CRUD actions.
+  To use this application, the user first needs to clone the repository to their computer. Then they simply need to open a terminal window, navigate to the root directory of the repository and run the command "npm start" in the terminal. They can then select from the list of choices to interact with the database and perform CRUD actions.
   ## Contributors
   There were no additional contributors for this project.
   ## Testing
