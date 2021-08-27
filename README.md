@@ -21,9 +21,13 @@
   ## Installation
   In order for this application to work, the user will need to install 3 npm packages, installation steps are listed below.
   -npm init -y
+  
   -npm i mysql2
+  
   -npm i inquirer
+  
   -npm i console.table
+  
   ## Usage
   To use this application, the user simply needs to open a terminal window, navigate to the root directory and run the command "npm start" in the terminal. They can then select from the list of choices to interact with the database and perform CRUD actions.
   ## Contributors
