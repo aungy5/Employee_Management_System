@@ -43,7 +43,8 @@ const initPrompt = () => {
             "Delete Department",
             "Delete Role",
             "Exit"
-        ]
+        ],
+        pageSize: 14,
       }
     ]).then(answers => {
         if (answers.init === "View All Employees") {
@@ -345,7 +346,7 @@ const initPrompt = () => {
             },
         ]).then(answers => {
         let results = connection.query("DELETE FROM roles WHERE id = ?",
-        [answers.deleteEmployeeID],
+        [answers.deleteRoleID],
 
         function (error, results) {
             if (error) throw error;
@@ -365,7 +366,7 @@ const initPrompt = () => {
             },
         ]).then(answers => {
         let results = connection.query("DELETE FROM department WHERE id = ?",
-        [answers.deleteEmployeeID],
+        [answers.deleteDeptID],
 
         function (error, results) {
             if (error) throw error;
